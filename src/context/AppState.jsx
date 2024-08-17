@@ -5,10 +5,10 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AppState(props) {
-  const url = "https://e-commerce-backend-gopn.onrender.com/api";
+  // const url = "https://e-commerce-backend-gopn.onrender.com/api";
   // const url = "https://ecommerce-api-1-3zfj.onrender.com/api";
   // const url = "https://ecommerce-api-qa6d.onrender.com/api";
-  // const url = "http://localhost:1000/api";
+  const url = "http://localhost:1000/api";
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -315,6 +315,30 @@ function AppState(props) {
     await setUserOrder(api?.data);
     console.log("user Order :: ", userOrder);
   };
+  const validateForm = (infoFields)=> {
+
+    // Check if any field is empty
+    for (let i = 0; i < infoFields.length; i++) {
+      if (infoFields[i].value === "") {
+        // alert("All fields are required");
+        toast.warning("All fields are required", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        return false; // Prevent form submission
+      }
+    }
+
+    // If all fields are filled, return true to allow submission
+    return true;
+  }
 
   return (
     <AppContext.Provider
@@ -338,6 +362,7 @@ function AppState(props) {
         shippingAddress,
         userAddress,
         userOrder,
+        validateForm,
       }}
     >
       {props.children}{" "}

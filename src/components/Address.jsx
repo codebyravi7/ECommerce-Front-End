@@ -4,7 +4,7 @@ import AppContext from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
 const Address = () => {
-  const { shippingAddress, userAddress } = useContext(AppContext);
+  const { shippingAddress, userAddress, validateForm } = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -24,37 +24,35 @@ const Address = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     // alert("Your form has been submited")
-    try { 
-      const result = await shippingAddress(
-        fullName,
-        address,
-        city,
-        state,
-        country,
-        pincode,
-        phoneNumber
-      );
-  
-      console.log("address adedd ", result);
-  
-      if (result.success) {
-        navigate("/checkout");
-      }
-  
-      setFormData({
-        fullName: "",
-        address: "",
-        city: "",
-        state: "",
-        country: "",
-        pincode: "",
-        phoneNumber: "",
-      });
+    // Get all elements with the class 'info-fields'
+    const infoFields = document.querySelectorAll(".info-fields");
+    const validated = validateForm(infoFields);
+    if (!validated) return false;
+    const result = await shippingAddress(
+      fullName,
+      address,
+      city,
+      state,
+      country,
+      pincode,
+      phoneNumber
+    );
 
+    console.log("address adedd ", result);
+
+    if (result.success) {
+      navigate("/checkout");
     }
-    catch (error) { 
-      console.error("error in address:: ",error);
-    }
+
+    setFormData({
+      fullName: "",
+      address: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: "",
+      phoneNumber: "",
+    });
   };
   return (
     <div className="bg-slate-200 content-wrapper-home  h-full min-w-screen max-w-screen min-h-screen p-2 text-black">
