@@ -24,34 +24,37 @@ const Address = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     // alert("Your form has been submited")
+    try { 
+      const result = await shippingAddress(
+        fullName,
+        address,
+        city,
+        state,
+        country,
+        pincode,
+        phoneNumber
+      );
+  
+      console.log("address adedd ", result);
+  
+      if (result.success) {
+        navigate("/checkout");
+      }
+  
+      setFormData({
+        fullName: "",
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        pincode: "",
+        phoneNumber: "",
+      });
 
-    const result = await shippingAddress(
-      fullName,
-      address,
-      city,
-      state,
-      country,
-      pincode,
-      phoneNumber
-    );
-
-    console.log("address adedd ", result);
-
-    if (result.success) {
-      navigate("/checkout");
     }
-
-    setFormData({
-      fullName: "",
-      address: "",
-      city: "",
-      state: "",
-      country: "",
-      pincode: "",
-      phoneNumber: "",
-    });
-
-    // console.log(formData);
+    catch (error) { 
+      console.error("error in address:: ",error);
+    }
   };
   return (
     <div className="bg-slate-200 content-wrapper-home  h-full min-w-screen max-w-screen min-h-screen p-2 text-black">
@@ -60,43 +63,37 @@ const Address = () => {
         <form onSubmit={submitHandler} className="my-3">
           <div className="row">
             <div className="mb-3 col-md-4 ">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Full Name
-              </label>
+              <label className="form-label">Full Name</label>
               <input
                 name="fullName"
                 value={formData.fullName}
                 onChange={onChangerHandler}
                 type="text"
-                className="form-control bg-light text-dark outline-none"
+                className="info-fields form-control bg-light text-dark outline-none"
                 id="exampleInputEmail13"
                 aria-describedby="emailHelp"
               />
             </div>
             <div className="mb-3 col-md-4">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Country
-              </label>
+              <label className="form-label">Country</label>
               <input
                 name="country"
                 value={formData.country}
                 onChange={onChangerHandler}
                 type="text"
-                className="form-control bg-light text-dark outline-none"
+                className="info-fields form-control bg-light text-dark outline-none"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
             </div>
             <div className="mb-3 col-md-4">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                State
-              </label>
+              <label className="form-label">State</label>
               <input
                 name="state"
                 value={formData.state}
                 onChange={onChangerHandler}
                 type="text"
-                className="form-control bg-light text-dark outline-none"
+                className="info-fields form-control bg-light text-dark outline-none"
                 id="exampleInputPassword1"
               />
             </div>
@@ -104,43 +101,37 @@ const Address = () => {
 
           <div className="row">
             <div className="mb-3 col-md-4 ">
-              <label htmlFor="exampleInputEmail1" className="form-label ">
-                City
-              </label>
+              <label className="form-label ">City</label>
               <input
                 name="city"
                 value={formData.city}
                 onChange={onChangerHandler}
                 type="text"
-                className="form-control bg-light text-dark outline-none"
+                className="info-fields form-control bg-light text-dark outline-none"
                 id="exampleInputEmail13"
                 aria-describedby="emailHelp"
               />
             </div>
             <div className="mb-3 col-md-4">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Pincode
-              </label>
+              <label className="form-label">Pincode</label>
               <input
                 name="pincode"
                 value={formData.pincode}
                 onChange={onChangerHandler}
                 type="number"
-                className="form-control bg-light text-dark outline-none"
+                className="info-fields form-control bg-light text-dark outline-none"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
             </div>
             <div className="mb-3 col-md-4">
-              <label htmlFor="exampleInputPassword1" className="form-label ">
-                PhoneNumber
-              </label>
+              <label className="form-label ">PhoneNumber</label>
               <input
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={onChangerHandler}
                 type="number"
-                className="form-control bg-light text-dark outline-none"
+                className="info-fields form-control bg-light text-dark outline-none"
                 id="exampleInputPassword1"
               />
             </div>
@@ -148,15 +139,13 @@ const Address = () => {
 
           <div className="row">
             <div className="mb-3">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Address/Nearby
-              </label>
+              <label className="form-label">Address/Nearby</label>
               <textarea
                 name="address"
                 value={formData.address}
                 onChange={onChangerHandler}
                 type="text"
-                className="form-control bg-light text-dark outline-none"
+                className="info-fields form-control bg-light text-dark outline-none"
                 id="exampleInputPassword1"
               />
             </div>
