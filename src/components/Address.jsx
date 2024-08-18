@@ -55,7 +55,7 @@ const Address = () => {
     });
   };
   return (
-    <div className="bg-slate-200 content-wrapper-home  h-full min-w-screen max-w-screen min-h-screen p-2 text-black">
+    <div className="bg-slate-200 content-wrapper  h-full min-w-screen max-w-screen min-h-screen p-2 text-black">
       <div className="my-3 p-4 bg-white shadow-xl m-4 rounded-lg ">
         <h1 className="text-2xl font-semibold text-center">Shipping Address</h1>
         <form onSubmit={submitHandler} className="my-3">
