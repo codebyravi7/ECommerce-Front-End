@@ -32,7 +32,7 @@ function Navbar() {
   };
   return (
     // nav z-10 bg-white-600 bg-opacity-50 backdrop-blur-sm fixed w-full top-0 left-0 flex justify-between px-12 py-3 scroll-none
-    <div className="bg-white text-gray-800 fixed w-full top-0 left-0 min-w-screen max-w-screen z-10 h-16 shadow-md">
+    <div className="bg-white text-gray-800 fixed w-full top-0 left-0 min-w-screen max-w-screen z-10 h-[70px] shadow-md">
       <div className="navbar px-1">
         <div className="left">
           <Link to={"/"}>
