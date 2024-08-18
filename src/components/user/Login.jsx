@@ -4,7 +4,7 @@ import AppContext from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { login } = useContext(AppContext);
+  const { login, validateForm, isAuthenticated } = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -14,46 +14,51 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const {email, password } = formData;
+  const { email, password } = formData;
   const submitHandler = async (e) => {
     e.preventDefault();
+    const infoFields = document.querySelectorAll(".info-fields");
+    const validated = validateForm(infoFields, formData);
+    if (!validated) return false;
+
     const result = await login(email, password);
     if (result.success) {
       navigate("/");
+    } else {
+      return false;
     }
   };
   return (
-    <div className="content-wrapper flex justify-center">
+    <div className="bg-slate-200 content-wrapper  h-full min-w-screen max-w-screen min-h-screen p-2 text-black flex justify-center">
       <form
         onSubmit={submitHandler}
-        className="flex flex-col bg-yellow-600 justify-center items-center w-80 mt-2 p-2 rounded-lg min-h-80"
+        className="flex flex-col bg-white items-center w-80 mt-12 p-2 rounded-lg h-64 shadow-lg"
       >
         <a href="/" className="text-2xl text-blue-900">
-          Home
-          <i className="fa-solid fa-house"></i>
+          <i className="fa-solid fa-house ml-2 text-3xl"></i>
         </a>
-        
+
         <input
-          className="bg-zinc-600 mt-2 rounded-lg h-12 p-2 w-full"
           name="email"
-          value={formData?.email}
-          onChange={onChangeHandler}
           type="email"
+          value={formData?.email}
           placeholder="Enter you email"
+          className="my-1 info-fields bg-slate-200  outline-none mt-2 rounded-lg h-12 p-2 w-full"
+          onChange={onChangeHandler}
         />
         <input
-          className="bg-zinc-600 mt-2 rounded-lg h-12 p-2 w-full"
           name="password"
-          value={formData?.password}
-          onChange={onChangeHandler}
           type="password"
+          value={formData?.password}
           placeholder="Enter you passsword"
+          onChange={onChangeHandler}
+          className="my-1 info-fields bg-slate-200  outline-none mt-2 rounded-lg h-12 p-2 w-full"
         />
 
         <input
-          className="bg-blue-600 mt-2 rounded-lg h-12 p-2 w-32 cursor-pointer"
+          className="rounded-lg hover-effect bg-slate-200 mt-3 h-12 p-2 w-32 cursor-pointer text-lg "
           type="submit"
-          value="Create Profile"
+          value="Login"
         />
       </form>
     </div>

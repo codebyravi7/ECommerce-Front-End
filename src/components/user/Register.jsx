@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import AppContext from "../../context/AppContext";
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const {register} =useContext(AppContext)
-  const navigate =useNavigate()
+  const { register, validateForm } = useContext(AppContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -17,59 +16,63 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const {name,email,password} = formData
-  const submitHandler = async(e) => {
+  const { name, email, password } = formData;
+  const submitHandler = async (e) => {
     e.preventDefault();
+
+    const infoFields = document.querySelectorAll(".info-fields");
+    const validated = validateForm(infoFields, formData);
+    if (!validated) return false;
+
     const result = await register(name, email, password);
     if (result.success) {
-      navigate('/login')
+      navigate("/login");
     }
   };
   return (
-    <div className="content-wrapper flex justify-center">
+    <div className="bg-slate-200 content-wrapper  h-full min-w-screen max-w-screen min-h-screen p-2 text-black flex justify-center">
       <form
         onSubmit={submitHandler}
-        className="flex flex-col bg-yellow-600 justify-center items-center w-80 mt-2 p-2 rounded-lg min-h-80"
+        className="flex flex-col bg-white items-center w-80 mt-12 p-2 rounded-lg min-h-80 h-96 shadow-lg"
       >
         <a href="/" className="text-2xl text-blue-900">
-          Home
-          <i className="fa-solid fa-house"></i>
+          <i className="fa-solid fa-house ml-2 text-3xl"></i>
         </a>
         <input
-          className="bg-zinc-600 mt-2 rounded-lg h-12 p-2 w-full"
-          type="text"
-          placeholder="Enter you Name"
           name="name"
-          value={formData?.name}
-          onChange={onChangeHandler}
-        />
-        {/* <input
-          className="bg-zinc-600 mt-2 rounded-lg h-12 p-2 w-full"
-          name="username"
-          value={formData?.username}
-          onChange={onChangeHandler}
           type="text"
-          placeholder="Enter you username"
-        /> */}
-        <input
-          className="bg-zinc-600 mt-2 rounded-lg h-12 p-2 w-full"
-          name="email"
-          value={formData?.email}
+          value={formData?.name}
+          placeholder="Enter you Name"
+          className="my-1 info-fields bg-slate-200  outline-none mt-2 rounded-lg h-12 p-2 w-full"
           onChange={onChangeHandler}
-          type="email"
-          placeholder="Enter you email"
         />
         <input
-          className="bg-zinc-600 mt-2 rounded-lg h-12 p-2 w-full"
-          name="password"
-          value={formData?.password}
+          name="username"
+          type="text"
+          value={formData?.username}
+          placeholder="Enter you username"
+          className="my-1 info-fields bg-slate-200  outline-none mt-2 rounded-lg h-12 p-2 w-full"
           onChange={onChangeHandler}
+        />
+        <input
+          name="email"
+          type="email"
+          value={formData?.email}
+          placeholder="Enter you email"
+          className="my-1 info-fields bg-slate-200  outline-none mt-2 rounded-lg h-12 p-2 w-full"
+          onChange={onChangeHandler}
+        />
+        <input
+          name="password"
           type="password"
+          value={formData?.password}
           placeholder="Enter you passsword"
+          onChange={onChangeHandler}
+          className="my-1 info-fields bg-slate-200  outline-none mt-2 rounded-lg h-12 p-2 w-full"
         />
 
         <input
-          className="bg-blue-600 mt-2 rounded-lg h-12 p-2 w-32 cursor-pointer"
+          className="rounded-lg hover-effect bg-slate-200 mt-6 h-12 p-2 w-32 cursor-pointer text-lg "
           type="submit"
           value="Create Profile"
         />

@@ -94,14 +94,22 @@ function Navbar() {
             </div>
           )}
           {!isAuthenticated && (
-            <>
+            <div className=" flex justify-end mx-4 ">
               <Link to={"/login"}>
-                <button className="btn btn-secondary mx-1">login</button>
+                <button className=" btn-secondary mx-10">
+                  <span className="material-symbols-outlined text-3xl hover-effect1">
+                    login
+                  </span>
+                </button>
               </Link>
               <Link to={"/register"}>
-                <button className="btn btn-info mx-1">register</button>
+                <button className=" mx-1">
+                  <span className="material-symbols-outlined text-3xl hover-effect1">
+                    how_to_reg
+                  </span>
+                </button>
               </Link>
-            </>
+            </div>
           )}
         </div>
       </div>

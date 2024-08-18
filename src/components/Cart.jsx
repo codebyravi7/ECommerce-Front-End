@@ -42,56 +42,58 @@ function Cart() {
           </button>
         </div>
       )}
-      {cart?.items?.map((product) => (
-        <div
-          key={product?._id}
-          className="bg-white flex m-8 mx-16 p-2 justify-between items-center rounded-lg text-gray-500"
-        >
-          <div className="cart-img">
-            <img
-              src={product?.imgSrc}
-              alt={product?.title}
-              className="w-32  rounded-lg"
-            />
-          </div>
+      <div className="">
+        {cart?.items?.map((product) => (
+          <div
+            key={product?._id}
+            className="relative bg-white flex m-8 mx-16 p-2 items-center rounded-lg text-gray-500"
+          >
+            <div className="cart-img mr-4">
+              <img
+                src={product?.imgSrc}
+                alt={product?.title}
+                className="w-32  rounded-lg"
+              />
+            </div>
 
-          <div className="cart-info  ">
-            <h2 className="text-2xl font-medium">{product?.title}</h2>
-            <h3>{product?.price}</h3>
-            <h3>Qty: {product?.qty}</h3>
-          </div>
-          <div className="action">
-            <div className="btn bg-gray-200 hover-effect  mx-3">
-              <span
-                className="material-symbols-outlined"
-                onClick={() => decreaseQuantity(product?.productId, 1)}
+            <div className="cart-info overflow-hidden ">
+              <p className="text-2xl font-medium text-wrap">{product?.title}</p>
+              <h3>{product?.price}</h3>
+              <h3>Qty: {product?.qty}</h3>
+            </div>
+            <div className="action absolute right-0 max-w-1/4">
+              <div className="btn bg-gray-200 hover-effect mx-1">
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => decreaseQuantity(product?.productId, 1)}
+                >
+                  do_not_disturb_on
+                </span>
+              </div>
+              <div
+                className="btn bg-gray-200 hover-effect"
+                onClick={() =>
+                  addToCart(
+                    product?.productId,
+                    product?.title,
+                    product?.price / product?.qty,
+                    1,
+                    product?.imgSrc
+                  )
+                }
               >
-                do_not_disturb_on
-              </span>
-            </div>
-            <div
-              className="btn bg-gray-200 hover-effect  mx-3"
-              onClick={() =>
-                addToCart(
-                  product?.productId,
-                  product?.title,
-                  product?.price / product?.qty,
-                  1,
-                  product?.imgSrc
-                )
-              }
-            >
-              <span className="material-symbols-outlined">add_circle</span>
-            </div>
-            <div
-              className="btn bg-gray-200  hover-effect  mx-3"
-              onClick={() => removeFromCart(product?.productId)}
-            >
-              <span className="material-symbols-outlined">delete</span>
+                <span className="material-symbols-outlined">add_circle</span>
+              </div>
+              <div
+                className="btn bg-gray-200  hover-effect mx-1"
+                onClick={() => removeFromCart(product?.productId)}
+              >
+                <span className="material-symbols-outlined">delete</span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
       {qty > 0 ? (
         <div className="text-center">
           <div

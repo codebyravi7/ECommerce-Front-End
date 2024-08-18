@@ -5,10 +5,8 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AppState(props) {
-  const url = "https://e-commerce-backend-gopn.onrender.com/api";
-  // const url = "https://ecommerce-api-1-3zfj.onrender.com/api";
-  // const url = "https://ecommerce-api-qa6d.onrender.com/api";
-  // const url = "http://localhost:1000/api";
+  // const url = "https://e-commerce-backend-gopn.onrender.com/api";
+  const url = "http://localhost:1000/api";
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,19 +34,20 @@ function AppState(props) {
     userCart();
     getAddress();
     user_Order();
-    console.log("running this use Effect!!");
+    // console.log("running this use Effect!!");
   }, [token, reload]);
 
   useEffect(() => {
     let lstoken = localStorage.getItem("token");
-    if (lstoken) {
+    // console.log("lstoken:: ", lstoken);
+    if (lstoken && lstoken != "undefined") {
       setToken(lstoken);
       setIsAuthenticated(true);
-      console.log("You are authenticated");
+      // console.log("You are authenticated");
     } else {
-      console.log("You are not authenticated");
+      // console.log("You are not authenticated");
     }
-  }, []);
+  }, [token]);
   //register user
   const register = async (name, email, password) => {
     const api = await axios.post(
@@ -100,9 +99,9 @@ function AppState(props) {
       theme: "light",
       transition: Bounce,
     });
-    // console.log("user login: ",api.data);
+    // console.log("user login: ", api?.data);
     setToken(api?.data?.token);
-    setIsAuthenticated(true);
+    setIsAuthenticated(api?.suceess);
     localStorage.setItem("token", api?.data?.token);
     return api.data;
   };
@@ -313,7 +312,7 @@ function AppState(props) {
     });
     // console.log("user Order :: ", api?.data);
     await setUserOrder(api?.data);
-    console.log("user Order :: ", userOrder);
+    // console.log("user Order :: ", userOrder);
   };
   const validateForm = (infoFields) => {
     // Check if any field is empty
