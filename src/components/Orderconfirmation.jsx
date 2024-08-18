@@ -65,7 +65,7 @@ function Orderconfirmation() {
             Shopping
           </button>
         </Link>
-        <Link to="/payment/userorder">
+        <Link to="/profile">
           <button className="bg-gray-400 p-2 px-4 shadow-2xl mx-4 font-semibold hover-effect">
             All Orders
           </button>

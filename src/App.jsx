@@ -32,7 +32,6 @@ function App() {
         <Route path="/shipping" element={<Address />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/orderconfirmation" element={<Orderconfirmation />} />
-        <Route path="/payment/userorder" element={<AllOrders />} />
       </Routes>
     </Router>
   );

@@ -49,10 +49,10 @@ function AppState(props) {
     }
   }, [token]);
   //register user
-  const register = async (name, email, password) => {
+  const register = async (name, email, username, password) => {
     const api = await axios.post(
       `${url}/user/register`,
-      { name, email, password },
+      { name, email, username, password },
       {
         headers: {
           "Content-Type": "Application/json",

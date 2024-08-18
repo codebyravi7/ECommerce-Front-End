@@ -16,7 +16,7 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const { name, email, password } = formData;
+  const { name, email, username, password } = formData;
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -24,7 +24,7 @@ const Register = () => {
     const validated = validateForm(infoFields, formData);
     if (!validated) return false;
 
-    const result = await register(name, email, password);
+    const result = await register(name, email, username, password);
     if (result.success) {
       navigate("/login");
     }
