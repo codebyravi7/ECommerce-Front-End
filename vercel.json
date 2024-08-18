@@ -1,0 +1,15 @@
+{
+  "routes": [
+    { "src": "/", "dest": "/" },
+    { "src": "/product/:id", "dest": "/" },
+    { "src": "/product/search/:term", "dest": "/" },
+    { "src": "/register", "dest": "/" },
+    { "src": "/login", "dest": "/" },
+    { "src": "/profile", "dest": "/" },
+    { "src": "/cart", "dest": "/" },
+    { "src": "/shipping", "dest": "/" },
+    { "src": "/checkout", "dest": "/" },
+    { "src": "/orderconfirmation", "dest": "/" },
+    { "src": "/payment/userorder", "dest": "/" }
+  ]
+}
